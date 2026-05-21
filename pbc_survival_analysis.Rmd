@@ -1,0 +1,84 @@
+---
+title: "Анализ выживаемости в исследовании PBC"
+author: "Анна К"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+## 1. Введение
+
+Анализ данных рандомизированного контролируемого исследования первичного 
+билиарного цирроза (PBC). Сравнивается выживаемость пациентов получавших 
+D-penicillamine (n=158) и плацебо (n=154).
+
+## 2. Исходные характеристики (Table 1)
+
+```{r table1}
+library(survival)
+library(tableone)
+
+data(pbc)
+
+vars <- c("age", "sex", "ascites", "hepato", "spiders", 
+          "bili", "chol", "albumin", "copper", "platelet", "stage")
+catvars <- c("sex", "ascites", "hepato", "spiders", "stage")
+
+tab1 <- CreateTableOne(vars=vars, strata="trt", 
+                       data=pbc, factorVars=catvars)
+print(tab1, nonnormal=c("bili","chol","copper"), showAllLevels=FALSE)
+```
+
+**Вывод:** группы в целом сбалансированы. Выявлен значимый дисбаланс 
+по возрасту (p = 0.018) — включён как ковариата в основную модель.
+
+## 3. Анализ выживаемости — кривые Каплана-Мейера
+
+```{r km, fig.width=8, fig.height=6}
+library(survminer)
+
+fit <- survfit(Surv(time, status==2) ~ trt, data=pbc)
+
+ggsurvplot(fit, data=pbc,
+           pval=TRUE, conf.int=TRUE, risk.table=TRUE,
+           legend.labs=c("D-penicillamine","Плацебо"),
+           xlab="Время (дни)", ylab="Вероятность выживания",
+           title="Выживаемость по группам лечения (PBC)")
+```
+
+```{r logrank}
+survdiff(Surv(time, status==2) ~ trt, data=pbc)
+```
+
+**Вывод:** статистически значимых различий в выживаемости между группами 
+не выявлено (log-rank p = 0.75).
+
+## 4. Многофакторная Cox-регрессия
+
+```{r cox}
+pbc$log_bili <- log(pbc$bili)
+
+cox_final <- coxph(Surv(time, status==2) ~ trt + age + log_bili + 
+                   albumin + strata(stage), data=pbc)
+summary(cox_final)
+```
+
+```{r zph}
+cox.zph(cox_final)
+```
+
+**Вывод:** допущение пропорциональности рисков выполнено для всех 
+переменных (global p = 0.81). D-penicillamine не ассоциирован с улучшением 
+выживаемости после поправки на клинические факторы 
+(HR = 1.19, 95% ДИ [0.82, 1.71], p = 0.365). 
+Логарифм билирубина — наиболее сильный предиктор смертности 
+(HR = 2.60, p < 0.001).
+
+## 5. Заключение
+
+D-penicillamine не показал преимущества перед плацебо в отношении 
+выживаемости пациентов с PBC. Основными прогностическими факторами 
+являются уровень билирубина, альбумина, возраст и стадия заболевания.
