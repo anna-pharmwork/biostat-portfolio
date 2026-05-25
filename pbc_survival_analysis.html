@@ -4,6 +4,13 @@
 
 <head>
 
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
@@ -11,7 +18,7 @@
 
 <meta name="author" content="Анна К" />
 
-<meta name="date" content="2026-05-21" />
+<meta name="date" content="2026-05-24" />
 
 <title>Анализ выживаемости в исследовании PBC</title>
 
@@ -352,7 +359,7 @@ display: none;
 
 <h1 class="title toc-ignore">Анализ выживаемости в исследовании PBC</h1>
 <h4 class="author">Анна К</h4>
-<h4 class="date">2026-05-21</h4>
+<h4 class="date">2026-05-24</h4>
 
 </div>
 
@@ -494,6 +501,22 @@ summary(cox_final)</code></pre>
 выживаемости пациентов с PBC. Основными прогностическими факторами
 являются уровень билирубина, альбумина, возраст и стадия
 заболевания.</p>
+</div>
+<div id="логистическая-регрессия" class="section level2">
+<h2>6. Логистическая регрессия</h2>
+<pre class="r"><code>pbc$died &lt;- as.integer(pbc$status == 2)
+
+log2 &lt;- glm(died ~ trt + age + log_bili + albumin + stage,
+            data = pbc, family = binomial)
+
+exp(cbind(OR = coef(log2), confint(log2)))</code></pre>
+<pre><code>##                     OR        2.5 %   97.5 %
+## (Intercept) 0.03135437 0.0007142254 1.259042
+## trt         0.90015017 0.5099583730 1.585273
+## age         1.05887827 1.0299651039 1.090268
+## log_bili    3.19227959 2.2996046073 4.564989
+## albumin     0.63722493 0.2934416078 1.357474
+## stage       1.46514009 1.0246358257 2.118331</code></pre>
 </div>
 
 
