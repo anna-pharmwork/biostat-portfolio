@@ -82,3 +82,14 @@ cox.zph(cox_final)
 D-penicillamine не показал преимущества перед плацебо в отношении 
 выживаемости пациентов с PBC. Основными прогностическими факторами 
 являются уровень билирубина, альбумина, возраст и стадия заболевания.
+
+## 6. Логистическая регрессия
+
+```{r logistic}
+pbc$died <- as.integer(pbc$status == 2)
+
+log2 <- glm(died ~ trt + age + log_bili + albumin + stage,
+            data = pbc, family = binomial)
+
+exp(cbind(OR = coef(log2), confint(log2)))
+```
