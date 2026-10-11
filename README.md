@@ -1,7 +1,7 @@
 # Anna K. | Biostatistician & Aspiring Pharmacometrician
 
 📍 Open to Remote Opportunities Worldwide  
-📧 [annapharmwork@gmail.com](mailto:annapharmwork@gmail.com)  
+📧 (mailto:annapharmwork@gmail.com)  
 🔗 [LinkedIn](https://www.linkedin.com/in/anna-kalashnikova-9a46ba3b3) · [GitHub](https://github.com/anna-pharmwork)
 
 ---
@@ -82,8 +82,8 @@ I'm happy to discuss:
 - Collaboration on open-source pharma projects
 - Feedback on my portfolio or analyses
 
-📩 **Email:** [your.email@gmail.com](mailto:your.email@gmail.com)  
-💼 **LinkedIn:** [linkedin.com/in/your-profile](https://linkedin.com/in/your-profile)
+📩 **Email:** (mailto:annapharmwork@gmail.com)  
+💼 **LinkedIn:** (https://www.linkedin.com/in/anna-kalashnikova-9a46ba3b3/)
 
 ---
 
