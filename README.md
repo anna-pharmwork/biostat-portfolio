@@ -2,7 +2,7 @@
 
 📍 Open to Remote Opportunities Worldwide  
 📧 [annapharmwork@gmail.com](mailto:annapharmwork@gmail.com)  
-🔗 [LinkedIn]([https://linkedin.com/in/your-profile](https://www.linkedin.com/in/anna-kalashnikova-9a46ba3b3/)) · [GitHub](https://github.com/anna-pharmwork)
+🔗 [LinkedIn](https://www.linkedin.com/in/anna-kalashnikova-9a46ba3b3) · [GitHub](https://github.com/anna-pharmwork)
 
 ---
 
